@@ -1,0 +1,23 @@
+{
+    "name": "panatau/my-user-role",
+    "description": "",
+    "authors": [
+        {
+            "name": "Yan Friskantoni",
+            "email": "friskantoni@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Panatau\\MyUserRole\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
