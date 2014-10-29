@@ -1,6 +1,6 @@
 <?php namespace Panatau\MyUserRole\Storage;
 /**
- * Created by PhpStorm.
+ * MyUserRole utility, check the documentation in MyUserRoleInterface
  * User: toni
  * Date: 28/10/14
  * Time: 13:34
@@ -31,7 +31,7 @@ class MyUserRole implements MyUserRoleInterface{
         {
             App::abort(500, "Role Untuk $roleName Atau Permission $permName Tidak tersedia dan belum dimasukkan");
         }
-        return $role->permissions()->save($perm);
+        return $role->permissions()->attach($perm);
     }
 
     public function getRole($roleName)
@@ -102,8 +102,55 @@ class MyUserRole implements MyUserRoleInterface{
         return $ret;
     }
 
-    public function getLoggedUserCan($permission)
+    public function getIsLoggedUserCan($permission)
     {
         return $this->checkRolePermission($permission,$this->getCurrentLoggedUser());
+    }
+
+    /**
+     * Delete Role
+     * @param $roleName String role name
+     * @return mixed
+     */
+    public function deleteRole($roleName)
+    {
+        $role = $this->getRole($roleName);
+        if($role===null)
+        {
+            App::abort(500, "Role Untuk $roleName Tidak tersedia dan belum dimasukkan");
+        }
+        return $role->delete();
+    }
+
+    /**
+     * Delete Permission
+     * @param $permName string permission name
+     * @return boolean
+     */
+    public function deletePermission($permName)
+    {
+        $perm = $this->getRole($permName);
+        if($perm===null)
+        {
+            App::abort(500, "Permission Untuk $permName Tidak tersedia dan belum dimasukkan");
+        }
+        return $perm->delete();
+    }
+
+    /**
+     * dissociate permisson of $permName from $roleName
+     * @param $permName String permission to dissociate
+     * @param $roleName String the role
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function dissociatePermission($permName, $roleName)
+    {
+        $role = $this->getRole($roleName);
+        $perm = $this->getPermission($permName);
+        if($role===null || $perm===null)
+        {
+            App::abort(500, "Role Untuk $roleName Atau Permission $permName Tidak tersedia dan belum dimasukkan");
+        }
+        return $role->permissions()->detach($perm);
     }
 }

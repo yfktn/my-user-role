@@ -1,6 +1,6 @@
 <?php namespace Panatau\MyUserRole\Storage;
 /**
- * Created by PhpStorm.
+ * Permission Model
  * User: toni
  * Date: 27/10/14
  * Time: 21:49

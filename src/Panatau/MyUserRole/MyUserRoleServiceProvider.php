@@ -1,6 +1,7 @@
 <?php namespace Panatau\MyUserRole;
 
 use Illuminate\Support\ServiceProvider;
+use Panatau\MyUserRole\Storage\MyUserRole;
 
 class MyUserRoleServiceProvider extends ServiceProvider {
 
@@ -28,7 +29,10 @@ class MyUserRoleServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app['MyUserRole'] = $this->app->share(function($app)
+        {
+            return new \Panatau\MyUserRole\Storage\MyUserRole;
+        });
 	}
 
 	/**
