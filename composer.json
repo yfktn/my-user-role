@@ -1,5 +1,6 @@
 {
     "name": "yfktn/my-user-role",
+    "version" : "0.1",
     "description": "Simple authorization system",
     "authors": [
         {

@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Panatau\MyUserRole\Storage\MyUserRoleInterface;
 use Panatau\MyUserRole\Storage\RoleModel;
 use Panatau\MyUserRole\Storage\PermissionModel;
-use Illuminate\Support\Facades\App;
+use App;
+use Auth;
 
 class MyUserRole implements MyUserRoleInterface{
 
@@ -46,7 +47,7 @@ class MyUserRole implements MyUserRoleInterface{
 
     public function getCurrentLoggedUser()
     {
-        return Auth::getUser();
+        return Auth::user();
     }
 
     public function roleInherit($currRole, $roleInheriteId)
@@ -104,7 +105,7 @@ class MyUserRole implements MyUserRoleInterface{
 
     public function getIsLoggedUserCan($permission)
     {
-        return $this->checkRolePermission($permission,$this->getCurrentLoggedUser());
+        return $this->checkRolePermission($permission,$this->getCurrentLoggedUser()->roles);
     }
 
     /**

@@ -1,9 +1,8 @@
 <?php namespace Panatau\MyUserRole\Storage;
-use ClassPreloader\Config;
 use Illuminate\Support\Facades\App;
 use Panatau\MyUserRole\Storage\RoleModel;
 use Symfony\Component\Debug\ExceptionHandler;
-
+use Config;
 /**
  * Roles related for UserModel.
  * User: toni
@@ -72,6 +71,6 @@ trait UserRoleTrait {
         {
             App::abort(500, "Role Untuk $roleName Tidak tersedia dan belum dimasukkan");
         }
-        return $this->roles()->save($roleName);
+        return $this->roles()->save($roleModel);
     }
 }
